@@ -70,7 +70,6 @@ function getWinners(array, getFinalsCB) {
 
     allwinners.push(`${homewins} : ${awaywins}`);
 
-    console.log(allwinners);
     //return winners `${'Home Team Name'} : ${'Away Team Name'}`;
 }
 console.log(getWinners(fifaData, getFinals));
@@ -90,7 +89,9 @@ function getWinnersByYear(array, getYearsCB, getWinnersCB) {
     /* code here */
    const country = getWinnersCB(array, getFinals);
    const year = getYearsCB(array, getFinals);
-   return country.map((item, index)=> `In ${year[index]}, ${item} won the world cup!`);
+   const winningteam =  country.map((item, index) => `In ${year[index]}, ${item} won the world cup!`);
+    
+   return winningteam;
 }
 console.log(getWinnersByYear(fifaData, getYears, getWinners));
 
@@ -105,10 +106,14 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(data) {
+function getAverageGoals(getFinalsCB, data) {
    /* code here */
-   const avgHomeGoals = data.reduce(function(acc, item))
+   const avgHomeGoals = data.reduce(function(acc, item){
+       return acc + item['Home Team Goals'] + item['Away Team Goals'];
+   },0)
+  return (avgHomeGoals/data.length).toFixed(2);
 }
+console.log(getAverageGoals(getFinals,fifaData));
 
 
 
